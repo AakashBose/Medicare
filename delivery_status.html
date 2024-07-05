@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Status</title>
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap" rel="stylesheet">
+    <style>
+        /* Main Styles */
+        body, html {
+            font-family: 'Akzidenz-Grotesk', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        /* Navigation Bar */
+        #navbar {
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: #2e7d32;
+            opacity: 0.9;
+            padding: 10px 0;
+        }
+
+        #logo {
+            margin: 10px 34px;
+        }
+
+        #logo img {
+            height: 59px;
+            margin: 3px 6px;
+        }
+
+        #navbar ul {
+            display: flex;
+            font-family: 'Baloo Bhai', cursive;
+        }
+
+        #navbar ul li {
+            list-style: none;
+            font-size: 1.3rem;
+        }
+
+        #navbar ul li a {
+            color: white;
+            display: block;
+            padding: 3px 22px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+
+        #navbar ul li a:hover {
+            color: #2e7d32;
+            background-color: white;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        header h1 {
+            font-family: 'Bree Serif', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #1b5e20;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #388e3c;
+        }
+
+        /* Map Section */
+        #map {
+            height: 400px;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .order-details {
+            background-color: white;
+            color: #2e7d32;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .order-details h2 {
+            text-align: center;
+            color: #1b5e20;
+        }
+
+        .order-details table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .order-details table, .order-details th, .order-details td {
+            border: 1px solid #4caf50;
+        }
+
+        .order-details th, .order-details td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        .order-details th {
+            background-color: #81c784;
+            color: white;
+        }
+
+        .order-details td {
+            background-color: #e8f5e9;
+        }
+
+        /* Footer */
+        footer {
+            background: #2e7d32;
+            color: white;
+            padding: 9px 20px;
+            text-align: center;
+        }
+
+        /* Utility Classes */
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="navbar">
+        <div id="logo">
+            <img src="ye.jpeg" alt="Medicare.com">
+        </div>
+        <ul>
+            <li class="item"><a href="index.html#home">Home</a></li>
+            <li class="item"><a href="index.html#services-container">Services</a></li>
+            <li class="item"><a href="index.html#contact">Contact Us</a></li>
+            <li class="item"><a href="index.html#about-us">About Us</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Delivery Status</h1>
+        <p>A delivery driver is being assigned to you.</p>
+    </header>
+
+    <div id="map"></div>
+
+    <div class="order-details">
+        <h2>Order Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Medicine</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Dettol Original Instant Hand Sanitizer, 50 ml </td>
+                    <td>2</td>
+                    <td>₹50 + delivery charge</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><strong>Total</strong></td>
+                    <td><strong>₹50 + delivery charge</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <div class="center">
+            Copyright &copy; www.Medicare.com. All rights reserved!
+        </div>
+    </footer>
+
+    <script>
+        function initMap() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var userLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        center: userLocation,
+                        zoom: 15
+                    });
+
+                    var marker = new google.maps.Marker({
+                        position: userLocation,
+                        map: map,
+                        title: 'Your Location'
+                    });
+                }, function () {
+                    handleLocationError(true, map.getCenter());
+                });
+            } else {
+                handleLocationError(false, map.getCenter());
+            }
+        }
+
+        function handleLocationError(browserHasGeolocation, pos) {
+            var errorMessage = browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.';
+            alert(errorMessage);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD05mBHcP7IRxK8r2ArVp0DjmsxlnMnsPw&callback=initMap" async defer></script>
+</body>
+
+</html>
