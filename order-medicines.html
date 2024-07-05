@@ -196,15 +196,13 @@
                 <!-- Randomized Images for Slideshow (Replace with your image paths) -->
                 <div class="slide"><img src="doc1.jpg" alt="Slide 1"></div>
                 <div class="slide"><img src="ye.jpeg" alt="Slide 2"></div>
-                
             </div>
         </div>
 
-    
         <h1 class="h-primary">Order Medicines</h1>
         <div class="medicine-container">
             <!-- Medicine 1 -->
-            <div class="medicine-box" onclick="showMedicineDetails(1)">
+            <div class="medicine-box" onclick="showMedicineDetails('Pediasure Complete, Balanced Nutrition Premium Chocolate Flavour Nutrition Drink', 770)">
                 <img src="images/med3.jpg" alt="Medicine 1">
                 <div class="medicine-details">
                     <h3>Pediasure Complete, Balanced Nutrition Premium Chocolate Flavour Nutrition Drink</h3>
@@ -213,7 +211,7 @@
             </div>
 
             <!-- Medicine 2 -->
-            <div class="medicine-box" onclick="showMedicineDetails(2)">
+            <div class="medicine-box" onclick="showMedicineDetails('Becosules Capsule 20\'s', 46.8)">
                 <img src="images/med2.jpg" alt="Medicine 2">
                 <div class="medicine-details">
                     <h3>Becosules Capsule 20's</h3>
@@ -222,7 +220,7 @@
             </div>
 
             <!-- Medicine 3 -->
-            <div class="medicine-box" onclick="showMedicineDetails(3)">
+            <div class="medicine-box" onclick="showMedicineDetails('Zincovit Tablet 15\'s', 93.5)">
                 <img src="images/med4.jpg" alt="Medicine 3">
                 <div class="medicine-details">
                     <h3>Zincovit Tablet 15's</h3>
@@ -231,7 +229,7 @@
             </div>
 
             <!-- Medicine 4 -->
-            <div class="medicine-box" onclick="showMedicineDetails(4)">
+            <div class="medicine-box" onclick="showMedicineDetails('Otrivin Oxy Fast Relief Adult Nasal Spray, 10 ml', 90.1)">
                 <img src="images/med5.jpg" alt="Medicine 4">
                 <div class="medicine-details">
                     <h3>Otrivin Oxy Fast Relief Adult Nasal Spray, 10 ml</h3>
@@ -240,7 +238,7 @@
             </div>
 
             <!-- Medicine 5 -->
-            <div class="medicine-box" onclick="showMedicineDetails(5)">
+            <div class="medicine-box" onclick="showMedicineDetails('D-Rise 60K Capsule 4\'s', 116.9)">
                 <img src="images/med6.jpg" alt="Medicine 5">
                 <div class="medicine-details">
                     <h3>D-Rise 60K Capsule 4's</h3>
@@ -249,7 +247,7 @@
             </div>
 
             <!-- Medicine 6 -->
-            <div class="medicine-box" onclick="showMedicineDetails(6)">
+            <div class="medicine-box" onclick="showMedicineDetails('Electral Sachet 21.80 gm', 20.4)">
                 <img src="images/med7.jpg" alt="Medicine 6">
                 <div class="medicine-details">
                     <h3>Electral Sachet 21.80 gm</h3>
@@ -258,7 +256,7 @@
             </div>
 
             <!-- Medicine 7 -->
-            <div class="medicine-box" onclick="showMedicineDetails(7)">
+            <div class="medicine-box" onclick="showMedicineDetails('Dettol Original Instant Hand Sanitizer, 50 ml', 25)">
                 <img src="images/med8.jpg" alt="Medicine 7">
                 <div class="medicine-details">
                     <h3>Dettol Original Instant Hand Sanitizer, 50 ml</h3>
@@ -267,7 +265,7 @@
             </div>
 
             <!-- Medicine 8 -->
-            <div class="medicine-box" onclick="showMedicineDetails(8)">
+            <div class="medicine-box" onclick="showMedicineDetails('Limcee 500 mg Chewable Orange Tablet 15\'s', 20.8)">
                 <img src="images/med9.jpg" alt="Medicine 8">
                 <div class="medicine-details">
                     <h3>Limcee 500 mg Chewable Orange Tablet 15's</h3>
@@ -278,67 +276,52 @@
 
         <!-- Medicine Details Section (hidden by default) -->
         <div id="medicine-details-section" style="display: none;">
-            <h2 id="medicine-name"></h2>
-            <p id="medicine-price"></p>
+            <h2>Medicine Details</h2>
+            <p id="medicine-description"></p>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+            <button onclick="hideMedicineDetails()">Close</button>
+        </div>
 
-            <!-- Order Section -->
-            <div class="order-section">
-                <h3>Order Medicine</h3>
-                <form action="order_medicine.php" method="post">
-                    <label for="quantity">Select Quantity:</label>
-                    <select id="quantity" name="quantity" required>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
+        <div class="order-section">
+            <h2>Place Your Order</h2>
+            <form id="orderForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
 
-                    <label for="address">Delivery Address:</label>
-                    <textarea id="address" name="address" placeholder="Enter your delivery address" required></textarea>
+                <!-- Hidden fields for selected medicine and price -->
+                <input type="hidden" id="selectedMedicine" name="selectedMedicine">
+                <input type="hidden" id="selectedPrice" name="selectedPrice">
 
-                    <input type="submit" value="Order Now">
-                </form>
-            </div>
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone" required>
+
+                <input type="submit" value="Submit Order">
+            </form>
         </div>
     </section>
 
     <script>
-        function showMedicineDetails(medicineId) {
-            // Array to store medicine details
-            const medicines = [
-                { name: "Pediasure Complete, Balanced Nutrition Premium Chocolate Flavour Nutrition Drink", price: "₹770" },
-                { name: "Becosules Capsule 20's", price: "₹46.8" },
-                { name: "Zincovit Tablet 15's", price: "₹93.5" },
-                { name: "Otrivin Oxy Fast Relief Adult Nasal Spray, 10 ml", price: "₹90.1" },
-                { name: "D-Rise 60K Capsule 4's", price: "₹116.9" },
-                { name: "Electral Sachet 21.80 gm", price: "₹20.4" },
-                { name: "Dettol Original Instant Hand Sanitizer, 50 ml", price: "₹25" },
-                { name: "Limcee 500 mg Chewable Orange Tablet 15's", price: "₹20.8" }
-            ];
-
-            // Display medicine details for the selected medicineId
-            const selectedMedicine = medicines[medicineId - 1];
-            document.getElementById("medicine-name").textContent = selectedMedicine.name;
-            document.getElementById("medicine-price").textContent = "Price: " + selectedMedicine.price;
-
-            // Show the medicine details section
-            document.getElementById("medicine-details-section").style.display = "block";
-        }
-         // Slideshow Script
-         let currentSlide = 0;
-        const slides = document.querySelector('.slides');
-        const slideWidth = document.querySelector('.slide').offsetWidth;
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.children.length;
-            slides.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+        function showMedicineDetails(medicineName, price) {
+            document.getElementById('medicine-description').innerText = `${medicineName} - ₹${price}`;
+            document.getElementById('selectedMedicine').value = medicineName;
+            document.getElementById('selectedPrice').value = price;
+            document.getElementById('medicine-details-section').style.display = 'block';
         }
 
-        // Change slide every 5 seconds
-        setInterval(nextSlide, 5000);
+        function hideMedicineDetails() {
+            document.getElementById('medicine-details-section').style.display = 'none';
+        }
+
+        document.getElementById('orderForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            // Redirect to delivery_status.html after submitting the order
+            window.location.href = 'delivery_status.html';
+        });
     </script>
 </body>
 
 </html>
-
