@@ -294,7 +294,7 @@
             <!-- Appointment Booking Section -->
             <div class="appointment-section">
                 <h3>Book an Appointment</h3>
-                <form action="book_appointment.php" method="post">
+                <form id="appointment-form" action="book_appointment.php" method="post">
                     <label for="date">Select Date:</label>
                     <input type="date" id="date" name="date" required>
 
@@ -352,6 +352,12 @@
 
         // Change slide every 5 seconds
         setInterval(nextSlide, 5000);
+
+        // Handle appointment form submission
+        document.getElementById('appointment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Appointment has been booked');
+        });
     </script>
 </body>
 
