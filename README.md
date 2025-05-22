@@ -32,11 +32,6 @@ Medicare is a responsive, front-end healthcare simulation web app that offers ke
 
 ---
 
-## 📸 Screenshots
-
-*(You can add images here: homepage, booking form, map integration, etc.)*
-
----
 
 ## 🧠 Learnings
 
